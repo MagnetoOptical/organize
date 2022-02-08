@@ -25,7 +25,7 @@ Requirements:
 8. A means of exporting this data to a cartridge system for GTFO situations (natural disasters, civil/political unrest, quarantine zoning, etc)
 - Solution: A DIY 4-drive ZFS array via TrueNAS SCALE
 
-TODO: Need to address how to get the data off the device.  Perhaps a rotating disk in a protective case will suffice.  Should have a copy of TrueNAS config and a script to automatically impliment.  Needs investigation.
+TODO: Need to address how to get the data off the device.  Perhaps a rotating disk in a protective case will suffice.  Should have a copy of TrueNAS config and a script to automatically restore configs and data to a (new?) TrueNAS device in aftermath of a disaster.  Needs investigation.
 
 #### Remote Storage
 A cloud copy of your data is essential for ensure desaster recovery.  For this, it's important to make sure the correct data is being backed up.  In general, if you value it enough to put it on a dedicated local appliance, it should be remote as well.  I'll go with that for now.
