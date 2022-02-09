@@ -1,0 +1,39 @@
+= Storage
+
+== Hardware
+QNAP TS-ec1280u
+12x WD4004FZWX
+A 9-pin USB mainboard to USB A adapther
+A high-endurance 64GB USB thumb drive, only 16GiB partitioned to improve wear leveling.
+
+== Format
+USB will be formatted acording to TrueNAS SCALE requirements
+All 12 data drives will be formatted with ZFS in a single pool, called zfs_pool
+
+== Pool
+The pool, zfs_pool, will be comprised of 3 vdevs, striped
+
+== Vdevs
+Each Vdev is 4 disks, in RAIDZ2.  The reasoning for this is that because of the large size of drives today.  Anything over 2TiB is likely to cause another failure during rebuild.
+Additionally, Vdevs that are not a power of 2 in size (number of disks - parity disks) have lower performance than those that are.
+
+== Capacity
+The total capacity of the pool is expected to be in the neighborhood of 12TiB
+
+== Datasets
+There will be 2 datasets: /mnt/zfs_pool/files, /mnt/zfs_pool/container_volumes
+
+- files: Sub-datasets will exist within this for SAMBA and NFS shares, as needed
+- container_volumes: podman/docker file-based volumes on the local device
+
+== ZVols
+There will be 2 zvols: /mnt/zfs_pool/ISO, /mnt/zfs_pool/ATAoE
+
+- ISO: iSCSI share for ISO-style OS installer images.  These tend to be 1GiB+ and don't change often so streaming a few blocks should be optimally efficient.
+- ATAoE: In spite of all the hype, a properly setup ATA-over-Ethernet share is still lower latency and faster over all than NVMe-over-Fabric/Ethernet/TCP for the small number of threads running.  This virtual block device (a file within the Zvol) will be 1TiB in size and will be mounted by ProxmoxVE as a standard SATA drive and managed with LVM for VM's
+
+== Quotas
+Since this is for a small number of users (1), I don't see any need to enforce quotas.
+
+== Backup Policy
+The ATAoE data will be non-trivial to backup efficientyly, especially for GTFO situations.  I do not expect to utilized the full 12 TiB, however 6 TiB is very probable.  There are 5TiB 2.5" SATA hard drives for less than $150.  If I were to take all services offline once a night, and run a backup job on the Vdevs and prune, then only the ZVol needs to be synched at the time of evacuation; all other data would be up-to-date.
