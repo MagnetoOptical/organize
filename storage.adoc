@@ -6,6 +6,14 @@ QNAP TS-ec1280u
 A 9-pin USB mainboard to USB A adapther
 A high-endurance 64GB USB thumb drive, only 16GiB partitioned to improve wear leveling.
 
+== Software
+TrueNAS SCALE
+Borg backup
+rclone
+
+== External Requirements
+An account with Wasabi or similar S3-bucket-style storage provider.
+
 == Format
 USB will be formatted acording to TrueNAS SCALE requirements
 All 12 data drives will be formatted with ZFS in a single pool, called zfs_pool
