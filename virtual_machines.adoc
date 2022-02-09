@@ -1,0 +1,48 @@
+= Virtual Machines
+
+== Hardware
+
+Velocity Micro Workstation
+- AMD EPYC 7401P
+- 125 GiB RAM
+- 1x 480 GiB Intel Optane NVMe drive
+- 2x Seagate 2TB Hard Drives
+
+== Software
+
+- ProxmoxVE
+- vblade, aoe-tools
+
+== Use
+- Open Kubernetes Distrobution VM's
+- Assorted, specific purpose VM's
+
+== Storage
+
+- ISO: Block device, via iSCI to QNAP
+- VM: virtual block device, presented by ATAoE, managed as an LVM; multipathing is supported
+
+== Capacity
+=== Storage
+All storage in the cluster is limited to 1 TiB to keep backups manageable.
+
+=== vCPU
+CPU threads will not be over-provisioned by more than 2x.
+
+== Network
+
+- Public: The current /24 (external interface)
+- Private: 10.200.0.0/16 (vm-to-vm)
+- Storage: 192.168.127.0/24 (external interface)
+
+== Backup Policy
+Snapshots of VM's will be taken every 3 hours and pruned as follows:
+- Keep the last 6 hours
+- Keep the last 7 days
+- Keep the last 5 weeks
+- Keep the last 12 months
+- Keep the last 10 years
+
+The overlap is purposely built-in.
+
+All other backup tasks are handled on the TrueNAS array.
