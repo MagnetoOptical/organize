@@ -42,6 +42,8 @@ Requirements:
 ### 2. Services
 Services also seem to come in two flavors: virtual machines and containers.  The latter are easier to automate so that will be my focus.  In order to solve this problem, I need a container host.  For my home needs, Docker Swarm is sufficient, but because I need to stay up-to-date with OpenShift for work, Open Kubernetes Distribution will be my poison of choice.  For this, I need several servers and this is where the virtual machines come in.
 
+For more detail on the virtual machine setup, please refer to virtual_machines.adoc
+
 - Problem: Need several servers for OKD, have room for 1 physical machine due to downsizing of my workspace
 
 Requirements:
