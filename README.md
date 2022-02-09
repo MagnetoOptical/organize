@@ -8,7 +8,7 @@ Right now it's just a place where I'm keeping track of ideas about orgizing my m
 As far as I can tell, if I'm going to continue to thrive (survive?) in the tech space there are some essential things that need to be squared away.  To me, they seem to be:
 
 ### 1. Storage
-This comes in two flavors: local, remote.
+This comes in two flavors: local, remote.  Detail about this can be found in storage.adoc.
 
 #### Local Storage
 To me this is priority number one, because I live in a relatively safe place and I'm confident that something disasterous is unlikely to happen.  For this, I need a good NAS.  My trusty Synology DS918+ has served the role for half a decade, but I need more control over my storage appliance to enable automations that aren't easy to do on a Synology.  
