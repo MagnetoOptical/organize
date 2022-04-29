@@ -46,26 +46,27 @@ Requirements:
 - Solution: rclone encrypted share to rclone sync to Wasabi is the cheapest option I've found so far.  My local Kallithea instance is a great example of this working.
 
 ### 2. Services
-Services also seem to come in two flavors: virtual machines and containers.  The latter are easier to automate so that will be my focus.  In order to solve this problem, I need a container host.  For my home needs, Docker Swarm is sufficient, but because I need to stay up-to-date with OpenShift for work, Open Kubernetes Distribution will be my poison of choice.  For this, I need several servers and this is where the virtual machines come in.
+Services also seem to come in two flavors: virtual machines and containers.  The latter are easier to automate so that will be my focus.  In order to solve this problem, I need a container host.  For my home needs, Docker Swarm is sufficient, but because I need to stay up-to-date with OpenShift for work, ~~Open Kubernetes Distribution will be my poison of choice~~ Kubernetes will be my platform of choice since OpenShift relies on Java and I hate Java.  For this, I need several servers and this is where the virtual machines come in.
 
 For more detail on the virtual machine setup, please refer to virtual_machines.adoc
 
-- Problem: Need several servers for OKD, have room for 1 physical machine due to downsizing of my workspace
+- Problem: Need several servers for OKD, have room for 1 physical machine due to economics and downsizing of my workspace
 
 Requirements:
 1. Needs to be able to run a minimum of 7 VM's, no less than 4GiB of RAM each.
 2. Each VM needs a minimum of 4 vCPU and I will NOT overprovision by more than 2x so 12-16 threads
 3. 2+ GbE (or better) interfaces; 1 for public lan, 1 for storage
 4. Hypervisor should support live migration so physical host expansion is possible
-- Solution: Us my current EPYC 7401P workstation w/ Proxmox VE.  Local storage on this machine is not critical.  iSCSI is inefficient and bandwith is limited.  I suggest creating an AoE share (large file on dedicated dataset) on a the ZFS storage appliance and allow Proxmox to treat it as an LVM pool.
+- Solution: Us my current EPYC 7401P workstation w/ ~~Proxmox VE~~ XCP-ng.  Local storage on this machine is not critical.  iSCSI is inefficient and bandwith is limited.  ~~I suggest creating an AoE share (large file on dedicated dataset) on a the NAS/SAN storage appliance and allow the hypervisor to treat it as an LVM pool.~~  However, given that XCP-ng is derived from a Red Had dsitro base, and Red Hat has never given two licks about ATA-over-Ethernet--and I don't have the equipment for FCoE, iSCSI it is.
 
 #### Which Services, and in What Order?
 1. MariaDB, PostgreSQL, ArangoDB
 2. Source Repository (Distributed-capable, so probably something utilizing mercurial)
 3. Kanboard
-4. Calendaring
-5. Ticketing
-6. Project Management Dashboard
+4. Calendaring - ? 
+5. Ticketing - Roundup
+6. Project Management Dashboard - ... An API driven dashboard which gets all of its data (as requested) from the sources above
+7. Centralized Authorization and Authentication
 
 ##### Some thoughts about the above...
 I figure each component should be very Unixy.  In other words, it does its one thing and exposes an API which can be used to present all the data in a single pain of glass, hopefully allows for monitoring (alerts and such) and modifying the content and state of work as well.
