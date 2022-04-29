@@ -32,6 +32,8 @@ Option 1: Has the advantage of more effectively safe-guarding data, native suppo
 
 Option 2: Has the advantage of being cheaper (will work with an RPi3) to impliment and is already familiar.  It has the disadvantage of needing special considerations for databases and virtual machines and requires more steps to recover data in the event of corruption as well as having two layers of file system that need scrubbing (LVM2 and Btrfs)
 
+NOTE:  For the time being, I've opted for a Btrfs-over-LVM2 apprach in an 5-bay external enclosure attached to an RPi3.  This is good enough for Kallithea and Kanboard but is not a viable option for all of the needs addressed here.
+
 TODO: Need to address how to get the data off the device.  Perhaps a rotating disk in a protective case will suffice.  Should have a copy of storage device config and a script to automatically restore configs and data to a (new?) storage device in aftermath of a disaster.  Needs investigation.
 
 #### Remote Storage
