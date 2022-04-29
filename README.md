@@ -24,9 +24,15 @@ Requirements:
 6. Data checksumming (b/c background radiation and magnetosphere flux)
 7. About 4 TiB of total storage space
 8. A means of exporting this data to a cartridge system for GTFO situations (natural disasters, civil/political unrest, quarantine zoning, etc)
-- Solution: A DIY 4-drive ZFS array via TrueNAS SCALE
+- Options: 
+  * (1) A DIY 4-drive ZFS array via TrueNAS SCALE
+  * (2) A DIY 4-drive Btrfs single volume over a thick provisioned LVM2 RAID6
 
-TODO: Need to address how to get the data off the device.  Perhaps a rotating disk in a protective case will suffice.  Should have a copy of TrueNAS config and a script to automatically restore configs and data to a (new?) TrueNAS device in aftermath of a disaster.  Needs investigation.
+Option 1: Has the advantage of more effectively safe-guarding data, native support for file and block storage provisioning, and works well with VM's.  It has the disadvantage of requiring additional fast flash storage to compensate for performance issues. 
+
+Option 2: Has the advantage of being cheaper (will work with an RPi3) to impliment and is already familiar.  It has the disadvantage of needing special considerations for databases and virtual machines and requires more steps to recover data in the event of corruption as well as having two layers of file system that need scrubbing (LVM2 and Btrfs)
+
+TODO: Need to address how to get the data off the device.  Perhaps a rotating disk in a protective case will suffice.  Should have a copy of storage device config and a script to automatically restore configs and data to a (new?) storage device in aftermath of a disaster.  Needs investigation.
 
 #### Remote Storage
 A cloud copy of your data is essential to ensure disaster recovery in the event that the original infrastructure is unsuable.  For this, it's important to make sure the correct data is being backed up.  In general, if you value it enough to put it on a dedicated local appliance, it should be remote as well.  I'll go with that for now.
