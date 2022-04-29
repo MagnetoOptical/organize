@@ -20,7 +20,7 @@ Requirements:
 2. iSCSI volumes
 3. SAMBA shares
 4. NFS shares
-5. AoE volumes (need a couple)
+5. ~~AoE volumes (need a couple)~~
 6. Data checksumming (b/c background radiation and magnetosphere flux)
 7. About 4 TiB of total storage space
 8. A means of exporting this data to a cartridge system for GTFO situations (natural disasters, civil/political unrest, quarantine zoning, etc)
@@ -62,11 +62,12 @@ Requirements:
 #### Which Services, and in What Order?
 1. MariaDB, PostgreSQL, ArangoDB
 2. Source Repository (Distributed-capable, so probably something utilizing mercurial)
-3. Kanboard
-4. Calendaring - ? 
-5. Ticketing - Roundup
-6. Project Management Dashboard - ... An API driven dashboard which gets all of its data (as requested) from the sources above
-7. Centralized Authorization and Authentication
+3. Automated backup (local and cloud) and archival to optical disc
+4. Kanboard
+5. Calendaring - ? 
+6. Ticketing - Roundup
+7. Project Management Dashboard - ... An API driven dashboard which gets all of its data (as requested) from the sources above
+8. Centralized Authorization and Authentication
 
 ##### Some thoughts about the above...
 I figure each component should be very Unixy.  In other words, it does its one thing and exposes an API which can be used to present all the data in a single pain of glass, hopefully allows for monitoring (alerts and such) and modifying the content and state of work as well.
