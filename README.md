@@ -18,11 +18,11 @@ To me this is priority number one, because I live in a relatively safe place and
 Requirements:  
 1. 2+ GbE (or better) interfaces.  1 for public, 1 for storage
 2. iSCSI volumes
-3. SAMBA shares
+3. ~~SAMBA shares~~
 4. NFS shares
 5. ~~AoE volumes (need a couple)~~
 6. Data checksumming (b/c background radiation and magnetosphere flux)
-7. About 4 TiB of total storage space
+7. About 4 TiB of total storage space (2022-10-05: Really?! I bet an audit would reveal I need less)
 8. A means of exporting this data to a cartridge system for GTFO situations (natural disasters, civil/political unrest, quarantine zoning, etc)
 - Options: 
   * (1) A DIY 4-drive ZFS array via TrueNAS SCALE
