@@ -1,0 +1,13 @@
+= Services
+
+
+== Disclaimer
+
+"Services" does not neccessarily accurately describe each of the below, but neither does "container", "pod", or "deployment" in many cases.
+
+
+== Containerized Services
+
+* nginx reverse proxy
+* influxDB
+* telegraf
