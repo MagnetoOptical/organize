@@ -1,3 +1,17 @@
 = Virtual Machines
 
-*No longer in use.*
+== Essential
+
+* IPFire with 4 1 Gbps ports passed through
+* File server using Btrfs with ISCSI and NFS*
+* NextCloud
+* MariaDB
+* PostgreSQL
+* ArangoDB
+
+
+== Accessory
+
+* navidrom
+* tailscale
+* rancher
