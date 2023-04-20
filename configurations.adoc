@@ -12,3 +12,14 @@ Reasonable options seem to be:
 == Service Configuration
 
 Terraform is the obvious winner here.  There's providers for Rancher/Kubernetes, and XCP-ng.  Nothing more to say.
+
+
+== User Configuration
+
+Better known as "dotfiles", these are managed as follows:
+
+1. Configuration files go into the 'dotfiles' directory, a mercurial repository, treating 'dotfiles' as ~.
+2. GNU Stow is used to create and maintain links between the real content where it is expected on disk.
+3. Changes are committed and pushed to a repo in my kallithea instance
+
+WARNING: Though it may be tempting to do so, do NOT put Firefox, Thunderbird, or Plasma Desktop configurations in dotfiles.  The folder will balloon to Gigabytes in size and will change every time you do anything on any of the three, rendering the repo untenable.
