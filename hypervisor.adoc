@@ -1,0 +1,13 @@
+= Hypervisor
+
+
+== Hardware
+
+* A single server running XCP-ng.
+* A four-port gigabit NIC for IPS and firewall
+* 5 disks passed through to a dedicated NAS VM
+* 16 Thread CPU
+* Minimum 64 GB Registered ECC RAM
+* Minimum of 1 10 GBps Ethernet onboard
+* IPMI v2+ w/ Redfish, and onboard video
+* Minimum 250 GB NVMe SSD for XCP-ng and VMs
