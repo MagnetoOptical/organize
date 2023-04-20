@@ -36,7 +36,7 @@ The following is the snapshot retention policy:
 * 12 monthly
 * 12 yearly
 
-NOTE: There is overlap in the schedule above.  This doesn't hurt anything and is just easier for to process.
+NOTE: There is overlap in the schedule above.  This doesn't hurt anything and is just easier for me to process.
 
 
 == Borg Backup
