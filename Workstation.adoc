@@ -1,0 +1,14 @@
+== Workstation
+
+
+== OS
+
+This is a ideological decision with broad implications and broad tolerances.  Generally, the preference is a flavor of GNU/Linux.
+Where practical to choose, a Debian derivative is superior for my sensibilities.  
+
+That said, I do see the value in NIX and Guix (though I loathe the syntax of the latter).  Qubes is also of interest, but being aesthetically driven (it will be my downfall, I'm sure), it holds little weight in my mind.
+
+
+== Desktop Environment or Window Manager
+
+COSMIC or Plasma Desktop.  If the latter, Latte Dock must be present--it's configuration should be stored in dotfiles.
