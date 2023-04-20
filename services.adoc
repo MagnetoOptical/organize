@@ -11,3 +11,5 @@
 * nginx reverse proxy
 * influxDB
 * telegraf
+* kallithea
+* buildbot
