@@ -1,36 +1,15 @@
 = Storage
 
-== Hardware
+NOTE: Previous version of this document are radically different.  I've opted to go back to basics and choose simplicity as a primary design contstraint.
 
-- 5x RPi 3B+
-- 5x Libre Computing Le Potato
-- 10x SanDisk MobileMate USB 3.0 microSD(XC) reader
-- 10x 512GB Samsung EVO Select (A2, V30, U3)
+== Requirements
 
-== Software
+* A virtual machine with the storage bus pass through to the VM
+* 5 disks of 4TB or larger, 7200 RPM
+* Btrfs
 
-- https://garagehq.deuxfleurs.fr/blog/2022-introducing-garage/[Garage distributed object store]
-- Borg backup
-- rclone
 
-== External Requirements
-An account with Wasabi or similar S3-bucket-style storage provider.
+== Storage Exposure
 
-== Format
-- microSDXC cards have a single partition, a single LVM VG and LV, which is formatted with XFS.
-
-== Capacity
-The total capacity of the pool is expected to be in the neighborhood of 3TiB
-
-== Buckets
-
-- container-vols
-- database
-- files
-- repo
-
-== Quotas
-This doesn't seem to be a current feature of Garage, but for such a small user base it is unnecessary.
-
-== Backup Policy
-Data will be encrypted and backed up, per bucket, to replica buckets via Wasabi
+Storage will be exposed to other VM's via iSCSI.
+It is up to the initiator VM to solve its own problems regarding files, and further exposing its shares via NFS
