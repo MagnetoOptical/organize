@@ -12,6 +12,5 @@
 
 == Accessory
 
-* navidrom
-* tailscale
+* navidrome
 * rancher
