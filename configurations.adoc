@@ -2,19 +2,16 @@
 
 == Host Configuration
 
-I'm torn on this one.  I know Ansible pretty well, but it's not stateful and therefore verbose.  This is annoying.
-Reasonable options seem to be:
-
-* Ansible
-* Saltstack
+Using Saltstack to manage configurations
 
 
 == Service Configuration
 
-Terraform is the obvious winner here.  There's providers for Rancher/Kubernetes, and XCP-ng.  Nothing more to say.
+Terraform is the obvious winner here.  There's providers for Rancher/Kubernetes, and Proxmox VE.  Nothing more to say.
 
 
 == User Configuration
+> A new strategy is needed.  This is cumbersome to manage; changes not in a places directory (Downloads, Documents, Music, etc) should be updated automatically.
 
 Better known as "dotfiles", these are managed as follows:
 
