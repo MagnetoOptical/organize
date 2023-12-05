@@ -14,3 +14,4 @@
 * kallithea
 * buildbot
 * tailscale
+* UniFi network appliance for WAP
