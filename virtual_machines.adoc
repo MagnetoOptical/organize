@@ -2,15 +2,17 @@
 
 == Essential
 
-* IPFire with 4 1 Gbps ports passed through
-* File server using Btrfs with ISCSI and NFS*
-* NextCloud
-* MariaDB
-* PostgreSQL
-* ArangoDB
+* pfSense with 1 10 GbE port passed through for WAN, LAN dumps into bridge0
+* pihole to simplify DNS and DHCP, has other benefits
+* A VM for containers
+* File server using Btrfs with ISCSI, NFS, and CIFS
+* Salt Master
+* Backup Server
+* LLM w/ passed through GPU
+* Document management
+* Print server
 
 
 == Accessory
 
 * navidrome
-* rancher
