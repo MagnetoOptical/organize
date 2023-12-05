@@ -2,71 +2,23 @@
 
 == Overview
 
-1. A file server for storing data with SSH access
-2. Unison keeps data in sync between $HOME and the same path appended to /var/nfs/storage/
-3. Snapper take hourly snapshots
-4. Borg backs up the last snapshot taken daily
-5. Rclone syncs the state of borg to a hosted S3-style bucket
-6. Once a month the backup is exported for writing to one or more optical discs
+=== Client
+> Client snapshots are saved to a drive formatted with XFS.  This is because it is faster for this usecase than Btrfs and is less likely to experience inode exhaustion using it's default config than other file systems.
 
+A backup script using rsync to make snapshots every 2 hours to a remote host storing the snapshots by datestamp directory in a directory named the same as the client host.  This script is installed via salt-minion.  A list of excludes is read from ~/.config/backup/excludes.txt and mostly contains caches, ISO files, and flatpack blobs.
 
-== The File Server
+=== Server
+> The backup destination drive mounted at /srv/backup is formatted with Btrfs
 
-The file server utilizes a btrfs volume of five disks with a RAID 1c3 metadata and RAID 6 data configuration.
-The volume is exposed via NFS for recovery of files from snapshots.  This is a work in progress.
-A backup user is created to handle backup operations.  This user is also configured to have access to the Btrfs snapshots.
-
-
-== Unison
-
-The unison config is in my dotfiles directory (mercurial repository), linked via GNU stow.
-The config manages a two way batch sync with inclusions for caches, trash/recycle bin, ISO's and other things I don't want to backup.
-Part of the setup process involves creating a systemd timer to run a script that checks for the presence of the storage server on the network, and then triggers unison to run once every 30 minutes at 15 minutes and 45 minutes past the hour.
-The synchronization takes place over SSH, using the backup user and its ssh key.
-
-
-== Snapper
-
-Snapper is configured to take a snapshot in the data directory every hour.  
-The following is the snapshot retention policy:
-
-* 48 hourly
-* 7 daily
-* 5 weekly
-* 12 monthly
-* 12 yearly
-
-NOTE: There is overlap in the schedule above.  This doesn't hurt anything and is just easier for me to process.
-
+1. Scan /srv/snapshots to get all client hostname folders
+3. Run, in parallel
+	1. Generate a hash file for each client hostname folder's contents using find | xargs b3sum >> /srv/backup/<client_hostname>_<datestamp>.b3sum
+	2. lrztar | blkar each folder to /srv/backup/<client_hostname>_<datestamp>.lrz.blkar
+4. Rsync the tools used to the /srv/backup/tools folder
+5. Run pruning script
+6. Run filesystem defragmentation
+7. Run bees
+8. Run borgmatic to borg backup the backup drive at /srv/backup to borgbase
 
 == Borg Backup
-
-Borg backups up at the time everyone in the household is in bed.
-It begins one minute after a snapshot at the beginning of the hour, and uses that snapshot as the backup target.
-The backup (roughly 2.2 TiB) using auto,zstd,9 compression is encrypted, and takes about 15 minutes to complete after the first backup (about an hour) completes.
-The password for the backup is in a gpg encrypted text file, revealed to borg by use of BORG_PASSCOMMAND.
-The key exists on the local machine.
-A copy of the keys and their revocation key are stored on an optical disc with a copy of the necessary tools to reconstitute a server to restore or resume backups.
-The copy on optical disc is kept in a simply labeled (embossed white letters on archival black label tape--1970's style) black DVD case, in a safe deposit box.
-
-== Rclone
-
-Synchronization between rclone and an S3 bucket takes place as soon as the borg backup is complete -- it's run by the same script.
-The data is encrypted using rclone's crypt functionality.
-The crypt functionality does not obfuscate files, but borg pretty much takes care of this for you.  The result is mostly nonsense in the S3 bucket--there's no obvious structure or pattern present.
-
-
-== Export to Disc
-
-NOTE: This is a work in progress.
-
-The script runs the backup script (including rclone).  This happens once a month, a minute after midnight on the first day of each month.
-Then uses borg's export-tar function which is piped through lrzip -Uzq -o <absolute_path>/exports.
-It then creates a loop-back UDF file system the same size as the disc in the burner.
-The loop-back file system is mounted to <absolute_path>/disc.
-A 'tools' directory is created in the mounted loop-back image, and the necessary binaries are copied over (tar, blkar, borg, unison, rclone, lrzip, etc).
-The file is split into a multiple of 70% of the disc size.
-Each split chunk is run through blkar and the out put saved to the disc image.
-The disc is written with verification enabled.
-If the operation returns successful, the image just written and the chucks in it are deleted.
-If there are more chunks to write, the process resumes at the point of creating the loop-back UDF file system.
+Borg is used to keep offsite backup sizes small.  It is not meant for convenience.  Because of how I've structured the backup folder and it's contents, it would be trivial to extract the b3sum files and parse them to find the host and file/directory I'm looking for so I can get the correct path for a borg export-tar command in the event my local sources are not available.  In the latter case, it is also assumed I'll probably need everything anyway.
