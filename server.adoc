@@ -1,0 +1,7 @@
+= Server
+
+== OS
+With 1 exception, openSUSE MicroOS is used for all servers.  That one exception will be transistioned as soon as configurations stabalize.
+
+== Rationale
+The primary reason for this is the easy of rolling back an image using a Btrfs-based immutable file system.  Support for containers is also excellent and most virtual machines will be transitioned to them in time.
