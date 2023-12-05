@@ -11,5 +11,4 @@ NOTE: Previous version of this document are radically different.  I've opted to 
 
 == Storage Exposure
 
-Storage will be exposed to other VM's via iSCSI.
-It is up to the initiator VM to solve its own problems regarding files, and further exposing its shares via NFS
+Storage will be exposed to other VM's via NFS and iSCSI, and in select cases CIFS.  Excluding the backup server, all exposed storage is on the NAS.  Even if it looks like it's on another host, the presentation is really coming from the NAS (e.g. CIFS share for paperless-ngx)
